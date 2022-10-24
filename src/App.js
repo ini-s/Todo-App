@@ -3,7 +3,7 @@ import Input from "./components/Input"
 import List from "./components/List"
 import Filter from "./components/Filter"
 import Header from "./components/Header"
-import Footer from "./components/Footer"
+// import Footer from "./components/Footer"
 import uuid from "react-uuid"
 function App() {
   const [inputText, setInputText] = useState("")
@@ -117,7 +117,7 @@ function App() {
         clear={clearCompleted}
         complete={handleCompleted}
       />
-      <Footer/>
+      {/* <Footer/> */}
     </div>
   );
 }
