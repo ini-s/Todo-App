@@ -81,6 +81,7 @@ input:focus{
     box-shadow: rgb(0 0 0 / 0%) 0px 1rem 1.25rem;
 }
 .list .list-box{
+    background-color: rgb(37, 39, 60) !important;
     border-bottom: 1px solid rgb(57, 58, 76); 
     padding:1rem;
 }
@@ -89,6 +90,7 @@ input:focus{
     font-size:1.8rem;
 }
 .list.light-list .list-box{
+    background-color: rgb(255, 255, 255) !important;
     border-bottom: 1px solid rgb(228, 229, 241);
     color:rgb(72, 75, 106);
 }
@@ -149,17 +151,23 @@ input:focus{
     cursor:pointer;
     color:grey;
 }
+.filter .items-left{
+    cursor: none !important;
+}
+.filter .items-left:hover{
+    color:rgb(202, 205, 232);
+}
 .filter .all, .filter .active, .filter .completed{
     color: rgb(37, 78, 227) !important;
     font-weight: 500;
 }
 /* Footer  */
-/* .footer{
+.footer{
     font-size:18px;
     text-align:center;
     margin-top:3rem;
     color:#4e4f63;
-} */
+} 
 @media screen and (max-width: 767px){
     .input, .list, .filter,.header .text{
         width: 25rem;

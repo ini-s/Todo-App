@@ -3,12 +3,13 @@ import Input from "./components/Input"
 import List from "./components/List"
 import Filter from "./components/Filter"
 import Header from "./components/Header"
-// import Footer from "./components/Footer"
+import Footer from "./components/Footer"
 import uuid from "react-uuid"
 function App() {
   const [inputText, setInputText] = useState("")
   const [todoItems, setTodoItems] = useState(()=>JSON.parse(localStorage.getItem("storedTodo")) || [])
-  const [darkMode, setDarkMode] = useState(()=>JSON.parse(localStorage.getItem("theme")))  
+  const [darkMode, setDarkMode] = useState(localStorage.getItem("theme") === "true" || 
+    localStorage.getItem("theme") === "false"? JSON.parse(localStorage.getItem("theme")) :true)  
   const [todoList, setTodoList] = useState(todoItems)
   const [active, setIsActive] = useState("all")
   useEffect(()=>
@@ -40,12 +41,10 @@ function App() {
     setTodoItems(todoItems.map(item=> item.id === id?
              {...item, isChecked: !item.isChecked }:
              item))
-    console.log(todoItems)
   }
 
   function addItem(){
     const newTodo ={id:uuid(), todo: inputText, isChecked: false}
-    console.log(newTodo)
     inputText !=="" && setTodoItems(prevTodo=>[...prevTodo, newTodo])
     setInputText("")
   }
@@ -89,6 +88,17 @@ function App() {
   function toggleMode(){
     setDarkMode(prevMode => !prevMode)
   }
+  
+  function handleDragEnd(result){
+    if (!result.destination) {
+      return;
+  }
+  const newItems = [...todoItems];
+  const [removed] = newItems.splice(result.source.index, 1);
+  newItems.splice(result.destination.index, 0, removed);
+  setTodoItems(newItems)
+  }
+
   return (
     <div className="App">
       <Header 
@@ -107,6 +117,7 @@ function App() {
         todo={todoList}
         darkMode={darkMode}
         deleteItem={deleteItem}
+        dragEnd={handleDragEnd}
       />
       <Filter
         todo={todoItems}
@@ -117,7 +128,7 @@ function App() {
         clear={clearCompleted}
         complete={handleCompleted}
       />
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   );
 }
